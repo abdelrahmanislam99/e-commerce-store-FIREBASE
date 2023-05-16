@@ -1,0 +1,34 @@
+<nav>
+  <a class="navbar-brand" routerLink="/">Market</a>
+    <button (click)="toggleNavbar()" class="navbartoggler" type="button" data-toggle="collapse" datatarget="#navbarSupportedContent" aria-controls="navbarSupportedContent" ariaexpanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbarcollapse" [class.show]="isOpen" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+        <a class="navlink" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home
+        <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item" *ngIf="isUser">
+        <a class="navlink" routerLink="/cart" routerLinkActive="active">Cart</a>
+        </li>
+        <li class="nav-item" *ngIf="isUser && isAdmin">
+        <a class="navlink" routerLink="/admin" routerLinkActive="active">Dashboard</a>
+        </li>
+        <li class="nav-item" *ngIf="!isUser">
+        <a class="navlink" routerLink="/login" routerLinkActive="active">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="!isUser">
+        <a class="navlink" routerLink="/signup" routerLinkActive="active">Sign up</a>
+        </li>
+        <li class="nav-item" *ngIf="isUser">
+        <button class="btn btndanger" (click)="logout()">Logout</button>
+        </li>
+        </ul>
+        </div>
+        </div></nav>
+<div>
+  <div class="container">
+  <div class="routercontainer" [@router]="myOutlet.activatedRouteData['index']">
+  <router-outlet #myOutlet="outlet"></router-outlet>
+  </div>

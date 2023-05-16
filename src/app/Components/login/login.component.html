@@ -1,0 +1,85 @@
+<div class="main-div body">
+  <h2 class="text-center">Log In</h2>
+
+  <form #f="ngForm" (ngSubmit)="login(f)">
+    <div class="example-container first-child-div">
+      <mat-form-field appearance="fill">
+        <mat-label i18n>Enter your email</mat-label>
+        <input
+          ngModel
+          name="email"
+          #email="ngModel"
+          type="email"
+          class="form-control"
+          email
+          matInput
+          placeholder="pat@example.com"
+          [formControl]="email"
+          required
+        />
+        <div
+          class="alert alertdanger"
+          *ngIf="email.touched && email.errors?.required"
+        >
+          Email is requir ed
+        </div>
+        <div
+          class="alert alertdanger"
+          *ngIf="email.touched && email.errors?.email"
+        >
+          Your input doesn't match email format
+        </div>
+
+        <mat-error *ngIf="email.invalid" i18n>{{
+          getErrorMessage()
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="example-container second-child-div">
+      <mat-form-field appearance="fill">
+        <mat-label i18n>Enter your password</mat-label>
+
+        <input
+          ngModel
+          name="password"
+          #password="ngModel"
+          type="password"
+          class="form-control"
+          placeholder="Password"
+          required
+          minlength="6"
+          matInput
+          [type]="hide ? 'password' : 'text'"
+        />
+        <div
+          class="alert alertdanger"
+          *ngIf="password.touched && password.errors?.required"
+        >
+          Password is required
+        </div>
+        <div
+          class="alert alertdanger"
+          *ngIf="password.touched && password.errors?.minlength"
+        >
+          Password should be 6+ charachters
+        </div>
+        <br />
+        <div class="alert alert-danger" *ngIf="loginError">
+          {{ loginError }}
+        </div>
+
+        <button
+          [disabled]="f.invalid"
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon i18n>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
